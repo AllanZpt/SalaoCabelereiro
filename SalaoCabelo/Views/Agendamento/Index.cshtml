@@ -1,0 +1,74 @@
+@{
+    // Variável para armazenar a data do agendamento
+    string dataAgendamento = TempData["dataAgendamento"]?.ToString();
+
+    // Se a data não estiver definida, assume o dia de amanhã
+    if (string.IsNullOrEmpty(dataAgendamento))
+    {
+        dataAgendamento = DateTime.Now.AddDays(1).ToString("yyyy-MM-dd"); // Formato para campo <input type="date">
+    }
+}
+
+@{
+    ViewData["Title"] = "Listagem de serviços";
+}
+<div class="text-center">
+ <h1 class="display-4">Escolha data e horario disponivel</h1>
+
+
+    <form method="post" asp-action="CarregarHorarios" asp-controller="Agendamento">
+        <label for="dataAgendamento">Escolha o dia:</label>
+        <input type="date" id="dataAgendamento" name="dataAgendamento" value="@dataAgendamento" class="form-control w-25 mx-auto" />
+        <button type="submit" class="btn btn-primary mt-3">Carregar Horários</button>
+    </form>
+
+@{
+    // Definir horário de início e fim do expediente
+    TimeSpan horarioInicio = new TimeSpan(8, 0, 0); // 8:00
+    TimeSpan horarioFim = new TimeSpan(18, 0, 0);   // 18:00
+
+    // Intervalo entre os atendimentos (ex.: 30 minutos)
+    TimeSpan intervalo = new TimeSpan(0, 30, 0); // 30 minutos
+
+    // Lista para armazenar os horários
+    var horarios = new List<string>();
+
+    // Gerar os horários
+    for (var horaAtual = horarioInicio; horaAtual < horarioFim; horaAtual += intervalo)
+    {
+        horarios.Add(horaAtual.ToString(@"hh\:mm"));
+    }
+}
+    <br/>
+    <table class="table">
+    <thead>
+        <tr>
+        <th scope="col">Horario</th>
+        <th scope="col">Agendado S/N</th>
+        <th scope="col"></th>
+        </tr>
+    </thead>
+
+    <tbody>
+         @foreach (var horario in horarios)
+         {
+        <tr>
+        <td>@horario</td>
+        <td>Livre</td>
+        <td>
+            <div class="btn-group" role="group">
+                            <a href="javascript:void(0);" onclick="mostrarAlerta()" class="btn btn-primary">Agendar</a>
+            </div>
+            </td>
+        </tr>
+        }
+
+    </tbody>
+    </table>
+</div>
+
+<script>
+    function mostrarAlerta() {
+        alert("Botão não implementado");
+    }
+</script>

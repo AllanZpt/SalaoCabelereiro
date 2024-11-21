@@ -1,0 +1,38 @@
+@model Usuarios
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h3>Validação de contas</h3>
+
+<form asp-controller="Cliente" asp-action="Novo" method="post">
+    <div class="mb-3">
+        <label for="Name" class="form-label">Nome</label>
+        <input type="text" asp-for="Name" class="form-control" id="formGroupExampleInput" placeholder="Nome">
+    </div>
+    <div class="mb-3">
+        <label for="Name" class="form-label">Senha</label>
+        <input asp-for="Senha" type="password" class="form-control" id="formGroupExampleInput">
+    </div>
+    <div class="mb-3">
+        <label for="Data_niver" class="form-label">Data de nascimento</label>
+        <input asp-for="Aniversario" type="date" class="form-control" id="formGroupExampleInput2" placeholder="Data de nascimento">
+    </div>
+    <div class="mb-3">
+        <label for="CPF" class="form-label">CPF</label>
+        <input asp-for="CPF" type="text" class="form-control" id="formGroupExampleInput2" placeholder="Número do documento">
+    </div>
+    <div class="mb-3">
+        <label for="formGroupExampleInput2" class="form-label">Email de login</label>
+        <input asp-for="Email" type="email" class="form-control" id="formGroupExampleInput2" placeholder="E-mail">
+    </div>
+    <div class="mb-3">
+        <label for="formGroupExampleInput2" class="form-label">Celular</label>
+        <input asp-for="Celular" type="text" class="form-control" id="formGroupExampleInput2" placeholder="DD999999999">
+    </div>
+
+    <div class="d-grid gap-2">
+        <button type="submit" class="btn btn-primary btn-block">Submit</button>
+        <a class="btn btn-secondary btn-block" asp-controller="Cliente" asp-action="Index">Voltar</a>
+    </div>
+</form>

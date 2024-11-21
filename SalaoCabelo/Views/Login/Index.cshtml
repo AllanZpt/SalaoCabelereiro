@@ -1,0 +1,30 @@
+@model SalaoCabelo.Models.LoginModel
+
+<form asp-controller="Login" asp-action="Entrar" method="post">
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    @* Exibe mensagem de erro, se houver *@
+    @if (TempData["Erro"] != null)
+    {
+        <div class="alert alert-danger">
+            @TempData["Erro"]
+        </div>
+    }
+
+    <div class="mb-3">
+        <label for="login" class="form-label">Login</label>
+        <input type="text" asp-for="Login" class="form-control" id="formGroupExampleInput" placeholder="Email de Login">
+        @Html.ValidationMessageFor(x => x.Login)
+    </div>
+
+    <div class="mb-3">
+        <label for="senha" class="form-label">Senha</label>
+        <input type="password" asp-for="Password" class="form-control" id="formGroupExampleInput2" placeholder="Digite sua senha">
+        @Html.ValidationMessageFor(x => x.Password)
+    </div>
+
+    <div class="d-grid gap-2">
+        <button type="submit" class="btn btn-primary btn-block">Logar</button>
+        <a class="btn btn-warning" btn-block" asp-controller="Cliente" asp-action="Novo">Criar Conta</a>
+    </div>
+</form>

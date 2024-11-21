@@ -1,0 +1,11 @@
+@model Servico
+
+<h1>@ViewData["Title"]</h1>
+<div class="text-center">
+    <h1 class="display-4">Deseja realmente apagar o serviço ? @Model.Descricao</h1>
+</div>
+
+<div class="d-grid gap-2">
+    <a class="btn btn-secondary btn-block" asp-controller="Servicos" asp-action="Index">Voltar</a>
+    <a class="btn btn-danger btn-block" asp-controller="Servicos" asp-action="ApagarConfirmacao" asp-route-id="@Model.Id" >Confirmar</a>
+</div>

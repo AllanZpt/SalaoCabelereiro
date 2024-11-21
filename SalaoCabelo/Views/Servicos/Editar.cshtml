@@ -1,0 +1,31 @@
+@model Servico
+
+
+
+<h1>@ViewData["Title"]</h1>
+<div class="text-center">
+ <h1 class="display-4">Editar o serviço</h1>
+</div>
+
+
+<form asp-controller="Servicos" asp-action="Alterar" method="post">
+
+    <input type="hidden" asp-for="Id" /></>
+    <div class="mb-3">
+        <label for="Descricao" class="form-label">Descrição</label>
+        <input type="text" asp-for="Descricao" class="form-control" id="formGroupExampleInput" placeholder="Titulo do serviço">
+    </div>
+    <div class="mb-3">
+        <label for="formGroupExampleInput2" class="form-label">Valor</label>
+        <input type="number" asp-for="Valor" class="form-control" id="formGroupExampleInput2" placeholder="Valor do serviço">
+    </div>
+    <div class="mb-3">
+        <label for="formGroupExampleInput" class="form-label">Tempo de Duração</label>
+        <input type="text" asp-for="Duracao" class="form-control" id="formGroupExampleInput" placeholder="Digite a duração em minutos">
+    </div>
+
+    <div class="d-grid gap-2">
+        <button type="submit" class="btn btn-primary btn-block">Submit</button>
+        <a class="btn btn-secondary btn-block" asp-controller="Servicos" asp-action="Index">Voltar</a>
+    </div>
+</form>

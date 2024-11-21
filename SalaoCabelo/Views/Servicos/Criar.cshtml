@@ -1,0 +1,29 @@
+@model Servico
+
+<h1>@ViewData["Title"]</h1>
+<div class="text-center">
+ <h1 class="display-4">Cadastrar</h1>
+</div>
+
+<form asp-controller="Servicos" asp-action="Criar" method="post">
+    <div class="mb-3">
+        <label for="Descricao" class="form-label">Descrição</label>
+        <input type="text" asp-for="Descricao" class="form-control" id="formGroupExampleInput" placeholder="Titulo do serviço">
+        @Html.ValidationMessageFor(XmlConfigurationExtensions => XmlConfigurationExtensions.Descricao)
+    </div>
+    <div class="mb-3">
+        <label for="formGroupExampleInput2" class="form-label">Valor</label>
+        <input type="number" asp-for="Valor" class="form-control" id="formGroupExampleInput2" placeholder="Valor do serviço">
+        @Html.ValidationMessageFor(XmlConfigurationExtensions => XmlConfigurationExtensions.Valor)
+    </div>
+    <div class="mb-3">
+        <label for="formGroupExampleInput" class="form-label">Tempo de Duração</label>
+        <input type="text" asp-for="Duracao" class="form-control" id="formGroupExampleInput" placeholder="Digite a duração em minutos">
+        @Html.ValidationMessageFor(XmlConfigurationExtensions => XmlConfigurationExtensions.Duracao)
+    </div>
+
+    <div class="d-grid gap-2">
+        <button type="submit" class="btn btn-primary btn-block">Submit</button>
+        <a class="btn btn-secondary btn-block" asp-controller="Servicos" asp-action="Index">Voltar</a>
+    </div>
+</form>

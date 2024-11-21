@@ -1,0 +1,105 @@
+﻿@model List<SalaoCabelo.Models.Servico>
+
+@{
+    ViewData["Title"] = "Index";
+    var isAdmin = ViewData["IsAdmin"] as bool? ?? false;  // Verifica se o usuário é ADMIN
+}
+
+@if (isAdmin)
+{
+    <a role="button" asp-controller="Servicos" asp-action="Criar" class="btn btn-primary">Adicionar novo serviço</a>
+}
+
+<h3>Escolha os serviços</h3>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th></th>
+            <th>Preço</th>
+            <th>Duração</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Any())
+        {
+            @foreach (var servico in Model)
+            {
+                <tr>
+                    <td>@servico.Descricao</td>
+                    <td>@servico.Valor.ToString("N2")</td>
+                    <td>@servico.Duracao</td>
+                    <td>
+                        <div>
+                            <input class="form-check-input"
+                                   type="checkbox"
+                                   id="checkboxServico@servico.Id"
+                                   value="@servico.Id"
+                                   data-valor="@servico.Valor"
+                                   data-duracao="@servico.Duracao"
+                                   onchange="atualizarTotal(this, parseFloat(this.getAttribute('data-valor')), parseInt(this.getAttribute('data-duracao')), this.value, this.getAttribute('data-descricao'))">
+                        </div>
+                    </td>
+                    <td>
+                        <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                            @if (isAdmin)
+                            {
+                                <a role="button" asp-route-id="@servico.Id" asp-controller="Servicos" asp-action="Editar" class="btn btn-light">Editar</a>
+                                <a role="button" asp-route-id="@servico.Id" asp-controller="Servicos" asp-action="Apagar" class="btn btn-danger">Deletar</a>
+                            }
+                        </div>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+<h4>Total</h4>
+<p>Valor Total: R$ <span id="totalValor">0.00</span></p>
+<p>Duração Total: <span id="totalDuracao">0</span> minutos</p>
+
+<div class="d-grid gap-2 col-6 mx-auto">
+    <a role="button" asp-controller="Agendamento" asp-action="Index" class="btn btn-primary" onclick="validarSelecionado()">Confirmar Serviços</a>
+</div>
+
+<script>
+    // Array para armazenar os serviços selecionados
+    let servicosSelecionados = [];
+    let totalValor = 0;
+    let totalDuracao = 0;
+
+  
+    function atualizarTotal(checkbox, valor, duracao, id) {
+       
+        if (checkbox.checked) {
+          
+            servicosSelecionados.push({ id, valor, duracao });
+        } else {
+  
+            servicosSelecionados = servicosSelecionados.filter(servico => servico.id !== id);
+        }
+
+        // Atualiza os totais
+        totalValor = servicosSelecionados.reduce((total, servico) => total + servico.valor, 0);
+        totalDuracao = servicosSelecionados.reduce((total, servico) => total + servico.duracao, 0);
+
+        // Atualiza a exibição dos totais
+        document.getElementById("totalValor").innerText = totalValor.toFixed(2);
+        document.getElementById("totalDuracao").innerText = totalDuracao;
+
+
+        console.log(servicosSelecionados);
+    }
+
+
+    function validarSelecionado() {
+        if (servicosSelecionados.length !== 1) {
+            alert("Por favor, selecione exatamente 1 serviço.");
+            event.preventDefault();
+        } else {
+ 
+            console.log("Serviço confirmado:", servicosSelecionados);
+        }
+    }
+</script>
