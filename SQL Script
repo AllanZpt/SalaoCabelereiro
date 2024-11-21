@@ -1,0 +1,200 @@
+USE [master]
+GO
+/****** Object:  Database [SalaoCabelo]    Script Date: 20/11/2024 22:31:03 ******/
+CREATE DATABASE [SalaoCabelo]
+ CONTAINMENT = NONE
+ ON  PRIMARY 
+( NAME = N'SalaoCabelo', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL16.SQLEXPRESS\MSSQL\DATA\SalaoCabelo.mdf' , SIZE = 8192KB , MAXSIZE = UNLIMITED, FILEGROWTH = 65536KB )
+ LOG ON 
+( NAME = N'SalaoCabelo_log', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL16.SQLEXPRESS\MSSQL\DATA\SalaoCabelo_log.ldf' , SIZE = 8192KB , MAXSIZE = 2048GB , FILEGROWTH = 65536KB )
+ WITH CATALOG_COLLATION = DATABASE_DEFAULT, LEDGER = OFF
+GO
+ALTER DATABASE [SalaoCabelo] SET COMPATIBILITY_LEVEL = 160
+GO
+IF (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled'))
+begin
+EXEC [SalaoCabelo].[dbo].[sp_fulltext_database] @action = 'enable'
+end
+GO
+ALTER DATABASE [SalaoCabelo] SET ANSI_NULL_DEFAULT OFF 
+GO
+ALTER DATABASE [SalaoCabelo] SET ANSI_NULLS OFF 
+GO
+ALTER DATABASE [SalaoCabelo] SET ANSI_PADDING OFF 
+GO
+ALTER DATABASE [SalaoCabelo] SET ANSI_WARNINGS OFF 
+GO
+ALTER DATABASE [SalaoCabelo] SET ARITHABORT OFF 
+GO
+ALTER DATABASE [SalaoCabelo] SET AUTO_CLOSE ON 
+GO
+ALTER DATABASE [SalaoCabelo] SET AUTO_SHRINK OFF 
+GO
+ALTER DATABASE [SalaoCabelo] SET AUTO_UPDATE_STATISTICS ON 
+GO
+ALTER DATABASE [SalaoCabelo] SET CURSOR_CLOSE_ON_COMMIT OFF 
+GO
+ALTER DATABASE [SalaoCabelo] SET CURSOR_DEFAULT  GLOBAL 
+GO
+ALTER DATABASE [SalaoCabelo] SET CONCAT_NULL_YIELDS_NULL OFF 
+GO
+ALTER DATABASE [SalaoCabelo] SET NUMERIC_ROUNDABORT OFF 
+GO
+ALTER DATABASE [SalaoCabelo] SET QUOTED_IDENTIFIER OFF 
+GO
+ALTER DATABASE [SalaoCabelo] SET RECURSIVE_TRIGGERS OFF 
+GO
+ALTER DATABASE [SalaoCabelo] SET  ENABLE_BROKER 
+GO
+ALTER DATABASE [SalaoCabelo] SET AUTO_UPDATE_STATISTICS_ASYNC OFF 
+GO
+ALTER DATABASE [SalaoCabelo] SET DATE_CORRELATION_OPTIMIZATION OFF 
+GO
+ALTER DATABASE [SalaoCabelo] SET TRUSTWORTHY OFF 
+GO
+ALTER DATABASE [SalaoCabelo] SET ALLOW_SNAPSHOT_ISOLATION OFF 
+GO
+ALTER DATABASE [SalaoCabelo] SET PARAMETERIZATION SIMPLE 
+GO
+ALTER DATABASE [SalaoCabelo] SET READ_COMMITTED_SNAPSHOT ON 
+GO
+ALTER DATABASE [SalaoCabelo] SET HONOR_BROKER_PRIORITY OFF 
+GO
+ALTER DATABASE [SalaoCabelo] SET RECOVERY SIMPLE 
+GO
+ALTER DATABASE [SalaoCabelo] SET  MULTI_USER 
+GO
+ALTER DATABASE [SalaoCabelo] SET PAGE_VERIFY CHECKSUM  
+GO
+ALTER DATABASE [SalaoCabelo] SET DB_CHAINING OFF 
+GO
+ALTER DATABASE [SalaoCabelo] SET FILESTREAM( NON_TRANSACTED_ACCESS = OFF ) 
+GO
+ALTER DATABASE [SalaoCabelo] SET TARGET_RECOVERY_TIME = 60 SECONDS 
+GO
+ALTER DATABASE [SalaoCabelo] SET DELAYED_DURABILITY = DISABLED 
+GO
+ALTER DATABASE [SalaoCabelo] SET ACCELERATED_DATABASE_RECOVERY = OFF  
+GO
+ALTER DATABASE [SalaoCabelo] SET QUERY_STORE = ON
+GO
+ALTER DATABASE [SalaoCabelo] SET QUERY_STORE (OPERATION_MODE = READ_WRITE, CLEANUP_POLICY = (STALE_QUERY_THRESHOLD_DAYS = 30), DATA_FLUSH_INTERVAL_SECONDS = 900, INTERVAL_LENGTH_MINUTES = 60, MAX_STORAGE_SIZE_MB = 1000, QUERY_CAPTURE_MODE = AUTO, SIZE_BASED_CLEANUP_MODE = AUTO, MAX_PLANS_PER_QUERY = 200, WAIT_STATS_CAPTURE_MODE = ON)
+GO
+USE [SalaoCabelo]
+GO
+/****** Object:  Table [dbo].[__EFMigrationsHistory]    Script Date: 20/11/2024 22:31:03 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[__EFMigrationsHistory](
+	[MigrationId] [nvarchar](150) NOT NULL,
+	[ProductVersion] [nvarchar](32) NOT NULL,
+ CONSTRAINT [PK___EFMigrationsHistory] PRIMARY KEY CLUSTERED 
+(
+	[MigrationId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Agendamentos]    Script Date: 20/11/2024 22:31:03 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Agendamentos](
+	[Id] [int] NOT NULL,
+	[Id_cliente] [int] NOT NULL,
+	[Id_servico] [int] NOT NULL,
+	[Data_agendado] [datetime2](7) NOT NULL,
+	[St_ativo] [bit] NOT NULL,
+ CONSTRAINT [PK_Agendamentos] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Clientes]    Script Date: 20/11/2024 22:31:03 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Clientes](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [nvarchar](max) NOT NULL,
+	[Aniversario] [datetime2](7) NOT NULL,
+	[CPF] [nvarchar](11) NOT NULL,
+	[Email] [nvarchar](max) NOT NULL,
+	[Celular] [nvarchar](max) NOT NULL,
+	[DtUsualt] [datetime2](7) NULL,
+	[DtUsuinc] [datetime2](7) NOT NULL,
+	[Perfil] [int] NOT NULL,
+	[Senha] [nvarchar](max) NOT NULL,
+ CONSTRAINT [PK_Clientes] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Servicos]    Script Date: 20/11/2024 22:31:03 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Servicos](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Descricao] [nvarchar](max) NOT NULL,
+	[Duracao] [float] NOT NULL,
+	[Valor] [float] NOT NULL,
+ CONSTRAINT [PK_Servicos] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+ALTER TABLE [dbo].[Clientes] ADD  DEFAULT ('0001-01-01T00:00:00.0000000') FOR [DtUsuinc]
+GO
+ALTER TABLE [dbo].[Clientes] ADD  DEFAULT (N'') FOR [Senha]
+GO
+ALTER TABLE [dbo].[Agendamentos]  WITH CHECK ADD  CONSTRAINT [FK_Agendamentos_Clientes_Id] FOREIGN KEY([Id])
+REFERENCES [dbo].[Clientes] ([Id])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[Agendamentos] CHECK CONSTRAINT [FK_Agendamentos_Clientes_Id]
+GO
+ALTER TABLE [dbo].[Agendamentos]  WITH CHECK ADD  CONSTRAINT [FK_Agendamentos_Servicos_Id] FOREIGN KEY([Id])
+REFERENCES [dbo].[Servicos] ([Id])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[Agendamentos] CHECK CONSTRAINT [FK_Agendamentos_Servicos_Id]
+GO
+USE [master]
+GO
+ALTER DATABASE [SalaoCabelo] SET  READ_WRITE 
+GO
+
+
+USE [SalaoCabelo]
+GO
+
+INSERT INTO [dbo].[Clientes]
+           ([Name]
+           ,[Aniversario]
+           ,[CPF]
+           ,[Email]
+           ,[Celular]
+           ,[DtUsualt]
+           ,[DtUsuinc]
+           ,[Perfil]
+           ,[Senha])
+     VALUES
+           ('Admin'  -- Nome
+           ,'1998-11-02 00:00:00'  -- Aniversário
+           ,'12345678971'  -- CPF
+           ,'admin@teste.com'  -- Email
+           ,'1111111111'  -- Celular
+           ,NULL  -- DtUsualt (se for NULL)
+           ,SYSDATETIME()  -- DtUsuinc (data do sistema)
+           ,2  -- Perfil (assumindo que é um valor numérico)
+           ,'123')  -- Senha
+
+
